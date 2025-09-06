@@ -1,0 +1,37 @@
+# ==================== REQUIRED PIP PACKAGES ====================
+
+# Pillow (Python Imaging Library fork)
+# Image handling, screenshots, grayscale conversion, filters, etc.
+Pillow>=10.0.0
+
+# pytesseract
+# Interface to Tesseract OCR, used for reading HP, MANA, and target names from the screen
+pytesseract>=0.3.10
+
+# pyautogui
+# GUI automation: clicking, mouse movement, screenshots, pressing keys
+pyautogui>=0.9.53
+
+# keyboard
+# Global hotkey handling and key listening (e.g., F9 for adding waypoints)
+keyboard>=0.13.5
+
+# ==================== BUILT-IN PYTHON MODULES ====================
+# These are part of the Python standard library and do not need pip installation:
+
+# tkinter
+# GUI – windows, buttons, text fields
+
+# time
+# Delays, sleep, timers
+
+# threading
+# Running parallel functions (AutoHeal, AutoMana, AutoTarget, CaveBot)
+
+# json
+# Saving and loading waypoints in JSON format
+
+# gc
+# Garbage Collector – freeing memory after screenshots
+
+# NOTE: All built-in modules are included in the Python standard library and do not require pip installation.

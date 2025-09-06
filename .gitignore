@@ -1,0 +1,27 @@
+# ==================== PYTHON ====================
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+env/
+venv/
+.venv/
+
+# ==================== IDE / EDITORS ====================
+.vscode/
+
+# ==================== SYSTEM ====================
+.DS_Store
+Thumbs.db
+
+# ==================== LOGS / TEMP FILES ====================
+*.log
+*.tmp
+
+# ==================== LOCAL / SENSITIVE CONFIGURATIONS ====================
+# config.yaml
+# secrets.json
+
+# ==================== NOTE ====================
+# The files and folders listed above are not required for the project to run,
+# but are specific to the local machine, IDE, or Python session.
