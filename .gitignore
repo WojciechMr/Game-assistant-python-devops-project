@@ -1,14 +1,20 @@
 # ==================== PYTHON ====================
 __pycache__/
-*.pyc
+*.py[cod]
 *.pyo
 *.pyd
 env/
 venv/
 .venv/
+*.egg-info/
+dist/
+build/
 
 # ==================== IDE / EDITORS ====================
 .vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
 
 # ==================== SYSTEM ====================
 .DS_Store
@@ -17,11 +23,24 @@ Thumbs.db
 # ==================== LOGS / TEMP FILES ====================
 *.log
 *.tmp
+*.bak
 
 # ==================== LOCAL / SENSITIVE CONFIGURATIONS ====================
 # config.yaml
 # secrets.json
+aws/
+awscliv2.zip
+
+# ==================== TERRAFORM ====================
+.terraform/
+*.tfstate
+*.tfstate.backup
+*.tfvars
+*.tfplan
+crash.log
+.terraform.lock.hcl   # opcjonalnie, jeśli chcesz zamrozić wersje providerów
 
 # ==================== NOTE ====================
 # The files and folders listed above are not required for the project to run,
-# but are specific to the local machine, IDE, or Python session.
+# but are specific to the local machine, IDE, Python session, Terraform, or AWS.
+
