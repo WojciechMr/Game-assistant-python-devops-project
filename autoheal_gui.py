@@ -23,12 +23,12 @@ hp_box = (1871, 148, 20, 12)
 
 
 autoheal_active = False
-# === METRYKI ===
-hp_gauge = Gauge("bot_hp", "Aktualne HP")
-mana_gauge = Gauge("bot_mana", "Aktualna mana")
-targets_counter = Counter("bot_targets_total", "Ile razy znaleziono potwora")
-heals_counter = Counter("bot_heals_total", "Ile razy użyto leczenia")
-mana_uses_counter = Counter("bot_mana_uses_total", "Ile razy użyto many")
+# ============ METRICS ===============
+hp_gauge = Gauge("bot_hp", "Current Hp")
+mana_gauge = Gauge("bot_mana", "Current mana")
+targets_counter = Counter("bot_targets_total", "How many times has the monster been found")
+heals_counter = Counter("bot_heals_total", "How many times the treatment was used")
+mana_uses_counter = Counter("bot_mana_uses_total", "How many times mana was used")
 
 start_http_server(8000, addr='0.0.0.0')
 
