@@ -379,7 +379,7 @@ def send_metrics(hp=None, mana=None, targets=None, heals=None, mana_uses=None):
     try:
         requests.post(VPS_METRICS_URL, json=data)
     except Exception as e:
-        print(f"Nie udało się wysłać metryk: {e}")
+        print(f"Failed to send metrics: {e}")
 threading.Thread(target=hotkey_listener, daemon=True).start()
 
 
