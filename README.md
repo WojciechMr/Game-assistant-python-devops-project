@@ -27,3 +27,13 @@ A Python-based game assistant bot for Tibia with automated healing, mana, target
                                            |
                                            v
                                   Real-time dashboard / visualization
+## Zrzuty ekranu
+
+### Grafana Dashboard
+![Grafana Dashboard](docs/images/Grafimg.png)
+
+### Interfejs GUI
+![GUI Show](docs/images/Gui_show.png)
+
+### Prometheus
+![Prometheus Panel](docs/images/prometh_img.png)
