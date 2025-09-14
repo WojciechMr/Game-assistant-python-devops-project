@@ -11,7 +11,10 @@ import tkinter as tk
 import gc   
 import json
 import keyboard
+from prometheus_client import start_http_server, Counter, Gauge
+import requests
 paused = False
+VPS_METRICS_URL = "http://217.160.189.157:9100/update"  # Me VPS 
 
 pytesseract.pytesseract.tesseract_cmd = 'C:/Program Files/Tesseract-OCR/tesseract.exe'
 
@@ -20,6 +23,14 @@ hp_box = (1871, 148, 20, 12)
 
 
 autoheal_active = False
+# === METRYKI ===
+hp_gauge = Gauge("bot_hp", "Aktualne HP")
+mana_gauge = Gauge("bot_mana", "Aktualna mana")
+targets_counter = Counter("bot_targets_total", "Ile razy znaleziono potwora")
+heals_counter = Counter("bot_heals_total", "Ile razy użyto leczenia")
+mana_uses_counter = Counter("bot_mana_uses_total", "Ile razy użyto many")
+
+start_http_server(8000, addr='0.0.0.0')
 
 def get_hp_number():
     img = pyautogui.screenshot(region=hp_box)
@@ -50,6 +61,9 @@ def autoheal_loop():
                 last_hp = hp
                 if hp < int(entry_hp.get()):
                     cast_heal_spell()
+                    heals_counter.inc()
+                    hp_gauge.set(hp)
+                    send_metrics(hp=hp, heals=heals_counter._value.get())
         else:
             print("Failed to read HP.")
         time.sleep(0.1)
@@ -105,6 +119,9 @@ def auto_mana_loop():
                 last_mana = mana
                 if mana < int(entry_mana.get()):
                     use_mana_item()
+                    mana_uses_counter.inc()
+                    mana_gauge.set(mana)
+                    send_metrics(mana=mana, mana_uses=mana_uses_counter._value.get())
         else:
             print("Failed to read mana.")
 
@@ -162,14 +179,16 @@ def autotarget_loop():
                 print(f"Found '{text_clean}' na pozycji ({global_x}, {global_y})")
                 pyautogui.click(global_x, global_y, button='left')
                 time.sleep(0.1)
-                pyautogui.press('f2')  
+                pyautogui.press('f2')
+                targets_counter.inc()  
 
                 found = True
                 break
         
         if found:
             fighting = True
-            pause_cavebot = True   
+            pause_cavebot = True
+            send_metrics(targets=targets_counter._value.get())   
         else:
             fighting = False
             pause_cavebot = False
@@ -294,7 +313,6 @@ def toggle_pause():
         set_buttons_state('normal')  
 
 
-
 # -------------------------------------------- GUI ------------------------------------------------------
 
 root = tk.Tk()
@@ -350,6 +368,18 @@ def hotkey_listener():
     keyboard.wait("-")  
     close_gui()
 
+
+def send_metrics(hp=None, mana=None, targets=None, heals=None, mana_uses=None):
+    data = {}
+    if hp is not None: data["hp"] = hp
+    if mana is not None: data["mana"] = mana
+    if targets is not None: data["targets"] = targets
+    if heals is not None: data["heals"] = heals
+    if mana_uses is not None: data["mana_uses"] = mana_uses
+    try:
+        requests.post(VPS_METRICS_URL, json=data)
+    except Exception as e:
+        print(f"Nie udało się wysłać metryk: {e}")
 threading.Thread(target=hotkey_listener, daemon=True).start()
 
 
