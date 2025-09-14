@@ -37,3 +37,6 @@ A Python-based game assistant bot for Tibia with automated healing, mana, target
 
 ### Prometheus
 ![Prometheus Panel](docs/images/prometh_img.png)
+
+### Work in Terminal
+![Work in terminal](docs/images/terminal_screen.png)
